@@ -1,16 +1,13 @@
 .PHONY: test
-test:
-	@mojo format -q signals
-	@poetry run mojo run test.mojo
+test: fmt
+	@mojo test -I .
 
 .PHONY: run
-run:
-	@mojo format -q signals
-	@poetry run mojo run signals/main.mojo
+run: fmt
+	@mojo run signals/main.mojo
 
 .PHONY: build
-build: 
-	@mojo format -q signals
+build: fmt
 	@mkdir -p dist
 	@mojo package signals -o dist/signals.mojopkg
 
@@ -20,4 +17,5 @@ clean:
 
 .PHONY: fmt
 fmt: 
-	mojo format signals
+	@mojo format signals
+	@mojo format test
